@@ -1,16 +1,17 @@
-const observerOptions = {
-    /* 0.8 means 80% of that 750px box must be visible before 
-       the second image slides in. This creates the "delay" you want.
-    */
-    threshold: 0.8 
-};
+const blueprintObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // When the card enters the screen (scrolling down or up)
+      entry.target.classList.add('is-active');
+    } else {
+      // When the card leaves the screen (fades back to original state)
+      entry.target.classList.remove('is-active');
+    }
+  });
+}, { 
+  threshold: 0.6 // Adjust this: higher means you have to scroll further to trigger the swap
+});
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('is-active');
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.scroll-swap-box').forEach(el => observer.observe(el));
+document.querySelectorAll('.blueprint-card').forEach(card => {
+  blueprintObserver.observe(card);
+});

@@ -359,7 +359,7 @@ h1 {
 top: 0;
   left: 0;
   z-index: 1;
-  filter: grayscale(100%) opacity(0.2);
+  filter: grayscale(100%) opacity(0.8);
 }
 
 /* Photo: Starts lower and further right, then slides in */
@@ -504,19 +504,31 @@ position: relative !important;
 }
 
 .blueprint-card {
-  position: relative;
+position: relative !important;
   width: 100%;
-  aspect-ratio: 3/4;
-  background: #050505;
-  cursor: crosshair; /* Warehouse/Technical feel */
-  border: 1px solid rgba(34, 211, 238, 0.1); /* Subtle Cyan from your blue theme */
+  max-width: 600px;
+  height: 1000px; /* This is the physical space the user scrolls through */
+  margin: 100px auto;
+  /* Removed overflow: hidden here so sticky can work */
+}
+
+.blueprint-card .layer {
+position: absolute;
+  width: 60%; 
+  height: auto;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .card-inner {
-  position: relative;
-  width: 65%;
-  height: 65%;
-  overflow: hidden;
+position: sticky;
+  top: 15%; /* Pins it 15% from the top of the viewport */
+  width: 100%;
+  height: 600px; /* The height of the actual visual area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .layer {
@@ -529,16 +541,21 @@ position: relative !important;
 
 /* Final Photo: Grayscale and Moody */
 .final-image {
+bottom: 0;
+  right: 0;
   z-index: 2;
-  filter: grayscale(1) contrast(1.2);
-  opacity: 1;
+  opacity: 0;
+  transform: translate(40px, 40px); /* Slid further out to the bottom-right */
+  filter: grayscale(1) brightness(0.4);
 }
 
 /* The Sketch: Glowing Cyan like a Blueprint */
 .sketch-image {
+top: 0;
+  left: 0;
   z-index: 1;
-  filter: sepia(100%) hue-rotate(150deg) saturate(300%) brightness(0.8);
-  opacity: 0.3;
+  opacity: 0.4;
+  filter: grayscale(1) brightness(0.7);
 }
 
 /* Hover Action: Reveal the Sketch */
@@ -548,6 +565,17 @@ position: relative !important;
 
 .blueprint-card:hover .sketch-image {
   opacity: 1;
+}
+
+.blueprint-card.is-active .final-image {
+ opacity: 1;
+  transform: translate(0, 0);
+  filter: grayscale(0) brightness(1);
+}
+
+.blueprint-card.is-active .sketch-image {
+opacity: 0.1;
+  transform: scale(0.95);
 }
 
 /* "Duct Tape" Corner Effect */
@@ -775,4 +803,46 @@ position: relative !important;
   box-shadow: 0 0 10px #ff3131;
   z-index: 10000;
   /* You can animate this with JS or just let it be a static "Live" wire */
+}
+
+
+/* --- MOBILE & TABLET SCALING --- */
+@media (max-width: 768px) {
+  .blueprint-card {
+    height: 700px; /* Shorter track for mobile */
+  }
+  
+  .card-inner {
+    height: 450px;
+  }
+
+  .blueprint-card .layer {
+    width: 80%; /* Bigger on mobile */
+  }
+
+  .final-image {
+    bottom: 5%; /* Less extreme offset so it stays on screen */
+    right: 5%;
+  }
+}
+
+/* --- SMALL PHONE FIX --- */
+@media (max-width: 480px) {
+  .scroll-swap-box, .blueprint-card {
+    height: 500px;
+  }
+  
+  .scroll-swap-box .layer, .blueprint-card .layer {
+    width: 95%; /* Almost full width on tiny phones */
+  }
+  
+  .photo-layer, .final-image {
+    top: 20%; /* Even tighter overlap so the user sees both at once */
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-swap-box.is-active .sketch-layer {
+    opacity: 0; /* Total fade-out on mobile for clarity */
+  }
 }
