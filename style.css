@@ -1,0 +1,779 @@
+:root {
+  --bg: #050505;
+  --text: #f5f5f5;
+  --accent: #888;
+}
+
+body {
+  background-color: #121212;
+  color: #f5f5f5;
+  font-family: "Inter", sans-serif;
+  /* Resetting both counters here ONCE */
+  counter-reset: asset-count photo-count;
+  overflow-x: hidden;
+  /* Add a subtle concrete texture overlay */
+  background-image: radial-gradient(
+    circle at 50% 30%,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 60%
+  );
+  background-size: 50px 50px;
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: -10%;
+  right: -10%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(241, 196, 15, 0.03) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 8rem;
+  letter-spacing: -2px;
+  line-height: 0.9;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.deconstructed-swap-container {
+  width: 100%;
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.outline {
+  -webkit-text-stroke: 1px var(--text);
+  color: transparent;
+}
+
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 50px;
+}
+
+/* This makes every photo you upload look like a professional B&W editorial */
+.gallery-item img {
+  filter: grayscale(100%) contrast(1.1) brightness(0.9);
+  transition: all 0.5s ease;
+}
+
+/* Then on hover, they can "come to life" with a red or yellow tint */
+.gallery-item:hover img {
+  filter: grayscale(0%) contrast(1) brightness(1);
+}
+
+.photo {
+  flex: 0 1 350px; /* This locks the width to 350px so they aren't massive */
+  height: 500px; /* Consistent height */
+  position: relative;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
+}
+
+.photo img:hover {
+  filter: grayscale(0%);
+  transform: scale(1.02);
+}
+
+.photo,
+.photo-item,
+.scroll-swap-box {
+  position: relative; /* This is the anchor */
+}
+
+.background-ticker {
+  position: fixed;
+  top: 15%; /* Position it behind his head/hero area */
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: -1; /* Keeps it behind the photos */
+  opacity: 0.1; /* Very subtle */
+  pointer-events: none; /* User can click through it to photos */
+
+  -webkit-mask-image: radial-gradient(
+    circle at center,
+    transparent 20%,
+    black 60%
+  );
+  mask-image: radial-gradient(circle at center, transparent 15%, black 45%);
+}
+
+.ticker-track {
+  display: inline-block;
+  font-family: "Playfair Display", serif;
+  font-size: 14rem; /* Huge, dramatic text */
+  font-weight: 900;
+  text-transform: uppercase;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.253);
+  color: transparent;
+  animation: warehouseScroll 80s linear infinite;
+}
+
+@keyframes warehouseScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-track span {
+  /* Give the text a slight glow so when it fades, it looks like light */
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* The Gallery Container */
+.lookbook-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 200px; /* Base unit for the grid */
+  gap: 40px;
+  padding: 100px 5%;
+}
+
+/* Specific photo styles to create the "Staggered" look */
+.photo.tall {
+  grid-row: span 3; /* Makes the photo very tall */
+}
+
+.photo.wide {
+  grid-column: span 2; /* Spans across two columns */
+}
+
+.photo.standard {
+  grid-row: span 2;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures photos don't stretch */
+  transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.booking-section {
+  background: #000;
+  padding: 100px 5%;
+  border-top: 1px solid #222;
+}
+
+.booking-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 100px;
+}
+
+.editorial-title {
+  font-family: "Playfair Display", serif;
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+}
+
+.agency-input,
+.agency-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #444; /* Just a line, very sleek */
+  color: #fff;
+  padding: 15px 0;
+  margin-bottom: 30px;
+  font-family: "Inter", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+}
+
+.submit-btn {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 20px 40px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  letter-spacing: 5px; /* Adds that "active" kinetic energy */
+}
+
+/* The Custom Cursor */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference; /* This makes it flip colors based on background */
+  transition: transform 0.2s ease;
+}
+
+/* The Spotlight effect on images */
+.photo-item {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  filter: grayscale(100%) contrast(1.1);
+  transition: filter 0.6s ease;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  aspect-ratio: 2 / 3;
+}
+
+.photo-item:hover {
+  filter: grayscale(0) brightness(1); /* Lights up when hovered */
+}
+
+.photo-item:hover img {
+  filter: grayscale(0%) contrast(1); /* Color returns smoothly */
+  transform: scale(1.05); /* Very subtle zoom like a camera lens focusing */
+}
+
+.photo-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0, 0.5));
+  box-shadow: 0 0 10px #ff3131;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.photo-item:hover::after {
+  animation: laserScan 2s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes laserScan {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+.tag-color-box {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #f1c40f;
+  margin-right: 5px;
+  box-shadow: 0 0 5px #f1c40f; /* Subtle "LED" glow */
+}
+
+.warehouse-hero {
+  background: #0a0a0a;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 20px solid #111; /* Like a concrete frame */
+}
+
+.industrial-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.stencil-text {
+  font-family: "Stencil", sans-serif;
+  color: #f1c40f; /* Caution Yellow */
+  position: absolute;
+  bottom: 10px;
+  left: -20px;
+  transform: rotate(-90deg);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+}
+
+.designer-swap {
+  width: 100%;
+  max-width: 500px; /* Scaling it down like you wanted */
+  margin: 0 auto; /* Centers it */
+  aspect-ratio: 2/3;
+  position: relative;
+}
+
+.designer-swap .layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures BOTH layers are cropped identically */
+}
+
+.scroll-swap-box .layer {
+  position: absolute;
+  width: 50%; /* Smaller editorial size */
+  height: auto;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  transition: all 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.sketch-layer {
+  top: 0;
+  left: 0;
+  z-index: 1;
+  filter: grayscale(100%) contrast(1.1) opacity(0.15);
+}
+
+/* Photo: Starts lower and further right, then slides in */
+.photo-layer {
+  top: 40%; /* Slight offset from the top */
+  right: 0; /* Starts slightly outside the box */
+  z-index: 2;
+  transform: translateX(100px); /* Slides in from the far right */
+  opacity: 0;
+  filter: grayscale(100%) brightness(0.5);
+}
+
+/* When the photo has arrived and you hover it... */
+.scroll-swap-box.is-active .photo-layer:hover {
+  filter: grayscale(100%); /* Flips back to B&W on hover */
+  transform: scale(1.03); /* Pops out slightly */
+  z-index: 10; /* Ensures it stays on top of everything */
+}
+
+/* Same for the sketch */
+.sketch-layer:hover {
+  filter: grayscale(0%) opacity(1); /* Sketch turns to color on hover */
+  z-index: 10;
+}
+
+/* Active State (Triggered by Scroll) */
+.scroll-swap-box.is-active .photo-layer {
+  transform: translateX(0);
+  opacity: 1;
+  filter: grayscale(0%) brightness(1); /* Turns color when revealed */
+}
+
+/* The Scroll-Trigger Class */
+.scroll-swap-box.is-active:hover .photo-layer {
+  filter: grayscale(100%) contrast(1.2); /* Flips back to B&W on hover */
+  transform: scale(1.02); /* Added a tiny zoom to show it's interactive */
+  cursor: crosshair;
+}
+
+.scroll-swap-box.is-active .sketch-layer {
+  opacity: 0.05; /* Fades out slightly to let the photo lead */
+  transform: translateX(-10px);
+}
+
+.scroll-swap-box {
+  position: relative !important;
+  width: 100%;
+  max-width: 600px; /* Smaller, controlled size */
+  height: 880px;
+  margin: 150px auto; /* Lots of space between sections */
+  overflow: visible;
+}
+
+.scroll-swap-box::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  right: 0;
+  width: 2px;
+  height: 55%; /* Matches photo height approx */
+  background: #ff3131;
+  box-shadow: 0 0 15px #ff3131;
+  opacity: 0;
+  z-index: 3;
+  transition: opacity 0.5s;
+}
+
+.scroll-swap-box.is-active::before {
+  opacity: 0.6;
+  animation: laserFlicker 1.4s forwards;
+}
+
+@keyframes laserFlicker {
+  0% {
+    transform: translateX(60px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+}
+
+.layer {
+  position: absolute;
+  width: 65%; /* Smaller than the container */
+  height: auto;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* The final photo is on top */
+.final-photo {
+  opacity: 0;
+}
+.sketch {
+  opacity: 1;
+}
+
+.is-active .final-photo {
+  opacity: 1;
+}
+.is-active .sketch {
+  opacity: 0;
+}
+
+/* When you hover, the top photo vanishes to reveal the sketch */
+.designer-swap:hover .final-photo {
+  opacity: 0;
+  transform: scale(1.05); /* Subtle zoom for "Impact" */
+}
+
+.sketch {
+  z-index: 1;
+  filter: invert(1) opacity(0.5); /* Makes the sketch look like a glowing blueprint */
+}
+
+.tech-label {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 3;
+  font-family: "Space Grotesk", monospace;
+  font-size: 10px;
+  color: #f1c40f; /* That Caution Yellow accent */
+}
+
+.designer-swap::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  width: 60px;
+  height: 25px;
+  background: rgba(255, 255, 255, 0.1); /* Silver duct tape */
+  transform: rotate(-5deg);
+  z-index: 10;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.blueprint-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: #050505;
+  cursor: crosshair; /* Warehouse/Technical feel */
+  border: 1px solid rgba(34, 211, 238, 0.1); /* Subtle Cyan from your blue theme */
+}
+
+.card-inner {
+  position: relative;
+  width: 65%;
+  height: 65%;
+  overflow: hidden;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Final Photo: Grayscale and Moody */
+.final-image {
+  z-index: 2;
+  filter: grayscale(1) contrast(1.2);
+  opacity: 1;
+}
+
+/* The Sketch: Glowing Cyan like a Blueprint */
+.sketch-image {
+  z-index: 1;
+  filter: sepia(100%) hue-rotate(150deg) saturate(300%) brightness(0.8);
+  opacity: 0.3;
+}
+
+/* Hover Action: Reveal the Sketch */
+.blueprint-card:hover .final-image {
+  opacity: 0;
+}
+
+.blueprint-card:hover .sketch-image {
+  opacity: 1;
+}
+
+/* "Duct Tape" Corner Effect */
+.corner-tape {
+  position: absolute;
+  top: -10px;
+  right: -25px;
+  width: 80px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  transform: rotate(45deg);
+  z-index: 10;
+  backdrop-filter: blur(2px);
+}
+
+/* Update your .neon-grid for his site */
+.neon-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100px 100px; /* Larger, more industrial grid */
+}
+
+/* Add a grunge texture overlay */
+.warehouse-grunge {
+  position: fixed;
+  inset: 0;
+  background: url("concrete-texture.jpg");
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.archival-name {
+  text-shadow: 0 0 30px rgba(0, 0, 0, 0.9); /* Creates a "dead zone" for the ticker to pass through */
+  z-index: 10;
+}
+
+.warehouse-gallery {
+  display: grid;
+  /* This creates as many 300px columns as will fit on the screen */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  counter-reset: photo-counter;
+  gap: 20px;
+  padding: 20px;
+}
+
+.warehouse-floor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* This creates a "glow" in the center that fades to dark edges */
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.highlight-text {
+  color: #f1c40f;
+  text-shadow: 0 0 10px rgba(241, 196, 15, 0.4); /* Makes it look like a glowing bulb */
+}
+
+/* Add this to his Name/Hero Text */
+.archival-name {
+  animation: tubeLightStart 2s ease-out forwards;
+}
+
+@keyframes tubeLightStart {
+  0% {
+    opacity: 0;
+    text-shadow: none;
+  }
+  5% {
+    opacity: 1;
+    text-shadow: 0 0 10px #fff;
+  }
+  10% {
+    opacity: 0.3;
+    text-shadow: none;
+  }
+  15% {
+    opacity: 1;
+    text-shadow: 0 0 20px #fff;
+  }
+  20% {
+    opacity: 0.5;
+    text-shadow: none;
+  }
+  25% {
+    opacity: 1;
+    text-shadow: 0 0 15px #fff;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Caution Yellow Glow */
+.yellow-accent {
+  color: #f1c40f;
+  text-shadow: 0 0 8px rgba(241, 196, 15, 0.6);
+}
+
+/* Safety Red Glow */
+.red-accent {
+  color: #ff3131;
+  text-shadow: 0 0 12px rgba(255, 49, 49, 0.7);
+}
+
+/* The "Scanner" Line */
+.scanner-line {
+  position: fixed;
+  width: 100%;
+  height: 2px;
+  background: #ff3131; /* Red is better for the scanner vibe */
+  box-shadow: 0 0 15px #ff3131;
+  opacity: 0.3;
+  animation: scan 4s linear infinite;
+  z-index: 100;
+}
+
+.btn-industrial {
+  background-color: #ff3131;
+  color: #fff;
+  border: none;
+  padding: 18px 40px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(255, 49, 49, 0.4); /* The "Safety" Glow */
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.photo,
+.hero-image-container,
+.main-portrait,
+.scroll-swap-box {
+  position: relative !important;
+}
+
+.btn-industrial:hover {
+  background-color: #d61a1a; /* Deeper red on hover */
+  box-shadow: 0 0 30px rgba(255, 49, 49, 0.8);
+  transform: scale(1.02);
+  letter-spacing: 5px; /* Kinetic expansion */
+}
+
+.asset-tag {
+  counter-increment: asset-count;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-family: "Space Grotesk", monospace;
+  font-size: 8px;
+  color: #f1c40f; /* Your Caution Yellow */
+  background: rgba(0, 0, 0, 0.8);
+  padding: 3px 7px;
+  letter-spacing: 1px;
+  z-index: 10;
+  border-left: 3px solid #ff3131; /* Red Safety Stripe */
+  pointer-events: none;
+  counter-increment: photo-count;
+}
+
+/* Add this to your Tag */
+.asset-tag::after {
+  content: " // BATCH_" counter(asset-count, decimal-leading-zero);
+  color: #ff3131; /* Red accent for the number */
+}
+
+.red-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: #ff3131; /* Your Safety Red */
+  border-radius: 50%;
+  margin-right: 4px;
+  animation: pulse 2s infinite;
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* THE KEY: Crops the photo like a magazine crop */
+  object-position: center 15%; /* Keeps the focus on his face/head */
+  transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.photo-item {
+  width: 100%; /* Spans the full width of your grid column */
+  height: 500px; /* Set a fixed height for a uniform "Lookbook" feel */
+  overflow: hidden; /* Hides the "massive" parts of the image */
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle warehouse frame */
+}
+
+/* For those tall, dramatic runway shots */
+.photo-item.tall {
+  height: 700px;
+}
+
+/* For wider, landscape design detail shots */
+.photo-item.wide {
+  grid-column: span 2;
+  height: 400px;
+}
+
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #ff3131;
+  box-shadow: 0 0 10px #ff3131;
+  z-index: 10000;
+  /* You can animate this with JS or just let it be a static "Live" wire */
+}
