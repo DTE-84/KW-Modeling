@@ -10,6 +10,12 @@
   --accent: #888;
 }
 
+html,
+body {
+  width: 100%;
+  overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -54,6 +60,7 @@ h1 {
   line-height: 0.9;
   text-align: center;
   padding: 50px 0;
+  margin-top: 100px;
 }
 
 h1.archival-name {
@@ -175,7 +182,7 @@ h1.archival-name {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; /* Change from center to flex-start */
-  padding-top: 10vh; /* Push content down from the very top */
+
   overflow: visible; /* Changed from hidden so we can see where it's breaking */
   background-color: #050505;
   z-index: 20; /* High z-index to stay above the ticker */
@@ -185,8 +192,12 @@ h1.archival-name {
 .hero h1.fade-in {
   font-size: clamp(4rem, 15vw, 10rem);
   line-height: 0.8;
-  margin-bottom: 20px;
+  margin-bottom: 120px;
   text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 10;
+  margin-top: 100px;
 }
 
 /* Fix the First Image Container */
@@ -201,6 +212,16 @@ h1.archival-name {
   display: inline-block;
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: visible;
+}
+
+.hero-sub {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  color: whitesmoke;
+  text-shadow: 0 0 20px var(--accent-yellow);
+  text-align: center;
+  margin-bottom: 120px;
 }
 
 .hero-img {
@@ -282,7 +303,7 @@ h1.archival-name {
   top: 0;
   left: 0;
   opacity: 0;
-  transform: scale(1.1) rotate(2deg); /* Offset for the "deconstructed" feel */
+  transform: scale(5.1) rotate(22deg); /* Offset for the "deconstructed" feel */
   filter: brightness(1.5) sepia(1);
   mix-blend-mode: screen;
   transition:
@@ -311,6 +332,17 @@ h1.archival-name {
 .outline {
   -webkit-text-stroke: 1px var(--text);
   color: transparent;
+}
+
+.gallery-title {
+  font-family: "Playfair Display", serif;
+  font-size: 5rem;
+  letter-spacing: 2px;
+  color: whitesmoke;
+  text-shadow: 0 0 20px var(--accent-yellow);
+  text-align: center;
+
+  padding: 150px;
 }
 
 .gallery-grid {
@@ -350,6 +382,7 @@ h1.archival-name {
 .photo img:hover {
   filter: grayscale(0%);
   transform: scale(1.02);
+  box-shadow: 0 0 30px var(--accent-yellow);
 }
 
 .photo,
@@ -1068,6 +1101,7 @@ section {
   border: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 3;
   padding: 25px;
+  margin-left: 60px;
 }
 
 .btn-industrial:hover {
