@@ -824,7 +824,7 @@ section {
   font-family: "Space Grotesk", monospace;
   font-size: 12px;
   color: var(--accent-yellow);
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 2px solid var(--accent-red);
   padding-left: 12px;
 }
 
