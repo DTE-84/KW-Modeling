@@ -183,9 +183,14 @@ h1.archival-name {
   align-items: center;
   justify-content: flex-start; /* Change from center to flex-start */
 
-  overflow: visible; /* Changed from hidden so we can see where it's breaking */
+  overflow: hidden; /* Changed from hidden so we can see where it's breaking */
   background-color: #050505;
   z-index: 20; /* High z-index to stay above the ticker */
+}
+
+.h1-hero {
+  background: transparent;
+  height: 200px;
 }
 
 /* Fix the First H1 (The one at the very top) */
@@ -198,6 +203,16 @@ h1.archival-name {
   position: relative;
   z-index: 10;
   margin-top: 100px;
+  text-shadow: 0 0 20px rgba(5, 5, 5, 0.8);
+}
+
+h1.fade-in {
+  position: relative; /* Required for z-index to work */
+  z-index: 10; /* Higher number = Front */
+  margin-top: 150px; /* Pushes it down away from the Nav bar */
+
+  /* Your flicker animation remains here */
+  animation: tubeLightStart 2.5s ease-out forwards;
 }
 
 /* Fix the First Image Container */
@@ -392,13 +407,13 @@ h1.archival-name {
 }
 
 .background-ticker {
-  position: fixed;
+  position: absolute;
   top: 15%; /* Position it behind his head/hero area */
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
-  z-index: 0; /* Keeps it behind the photos */
-  opacity: 0.1; /* Very subtle */
+  z-index: 1; /* Keeps it behind the photos */
+  opacity: 0.3; /* Very subtle */
   pointer-events: none; /* User can click through it to photos */
 
   -webkit-mask-image: radial-gradient(
