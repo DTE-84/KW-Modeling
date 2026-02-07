@@ -4,6 +4,10 @@
   --accent: #888;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #121212;
   color: #f5f5f5;
@@ -44,6 +48,241 @@ h1 {
   line-height: 0.9;
   text-align: center;
   padding: 50px 0;
+}
+
+h1.archival-name {
+  position: relative;
+  z-index: 101; /* The absolute highest point */
+}
+
+.archive-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* Increased the right padding (8%) to pull the contact button back on screen */
+  padding: 25px 8% 25px 0;
+  display: flex;
+  align-items: center;
+  z-index: 10000;
+  backdrop-filter: blur(12px);
+  background: rgba(5, 5, 5, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  animation: navSlideIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.nav-logo {
+  font-family: "Space Grotesk", monospace;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  color: var(--accent-red);
+  flex-shrink: 0; /* Prevents the logo from being squashed */
+  margin-left: 250px;
+}
+
+.nav-item {
+  white-space: nowrap; /* Prevents "INITIATE_CONTACT" from breaking into two lines */
+  color: #fff;
+  text-decoration: none;
+  font-family: "Space Grotesk", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* Increased spacing between links */
+  margin-left: auto; /* THE KEY: This pushes the links to the far right */
+  padding-right: 20px; /* Adjust this to move them in more or less from the edge */
+  animation: navSlideIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes navSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.nav-item {
+  color: #fff;
+  text-decoration: none;
+  font-family: "Space Grotesk", monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-num {
+  font-size: 0.5rem;
+  color: var(--accent-yellow);
+  margin-right: 5px;
+  vertical-align: top;
+}
+
+/* The Hover Effect: Red Scanner Line */
+.nav-item::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-red);
+  transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+.nav-item:hover {
+  color: var(--accent-yellow);
+}
+
+/* Special Button Style for Contact */
+.contact-link {
+  border: 1px solid var(--accent-red);
+  padding: 8px 16px;
+  background: rgba(255, 49, 49, 0.1);
+  /* Ensure the button doesn't have an invisible margin pushing it off */
+  margin-right: 0;
+}
+
+.contact-link:hover {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+  color: #000;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh; /* Set to 100vh to fill the screen */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Change from center to flex-start */
+  padding-top: 10vh; /* Push content down from the very top */
+  overflow: visible; /* Changed from hidden so we can see where it's breaking */
+  background-color: #050505;
+  z-index: 20; /* High z-index to stay above the ticker */
+}
+
+/* Fix the First H1 (The one at the very top) */
+.hero h1.fade-in {
+  font-size: clamp(4rem, 15vw, 10rem);
+  line-height: 0.8;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Fix the First Image Container */
+.hero-image-container {
+  position: relative;
+  width: fit-content;
+  max-width: 450px; /* Limits the giant image size */
+  margin: 0;
+  margin-bottom: 20px;
+  z-index: 21;
+  background: transparent;
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: visible;
+}
+
+.hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(100%);
+}
+
+.stats-grid-overlay {
+  position: absolute;
+  top: 0;
+  left: -180px; /* Adjust this to move it further left */
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.warehouse-grid-system {
+  padding: 100px 5%;
+  background: #050505;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 200px; /* Base unit for the grid */
+  gap: 30px;
+}
+
+/* GRID VARIATIONS */
+.grid-item.standard {
+  grid-row: span 2;
+}
+.grid-item.tall {
+  grid-row: span 3;
+}
+.grid-item.wide {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.grid-item {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    transform 0.8s cubic-bezier(0.2, 1, 0.3, 1),
+    filter 0.5s;
+}
+
+/* SWAP MECHANICS */
+.swap-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.sketch-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: scale(1.1) rotate(2deg); /* Offset for the "deconstructed" feel */
+  filter: brightness(1.5) sepia(1);
+  mix-blend-mode: screen;
+  transition:
+    opacity 0.6s ease,
+    transform 0.8s ease;
+}
+
+/* Active state (triggered by JS) */
+.grid-item.is-swapping .base-layer {
+  filter: grayscale(1) contrast(1.2);
+  transform: scale(0.95);
+}
+
+.grid-item.is-swapping .sketch-layer {
+  opacity: 0.7;
+  transform: scale(1) rotate(0deg);
 }
 
 .deconstructed-swap-container {
@@ -109,7 +348,7 @@ h1 {
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
-  z-index: -1; /* Keeps it behind the photos */
+  z-index: 0; /* Keeps it behind the photos */
   opacity: 0.1; /* Very subtle */
   pointer-events: none; /* User can click through it to photos */
 
@@ -303,12 +542,23 @@ h1 {
 }
 
 .warehouse-hero {
-  background: #0a0a0a;
-  height: 100vh;
+  clear: both;
   display: flex;
+  margin-top: 0; /* Reset margins */
+  padding-top: 10vh; /* Force a gap so the name doesn't overlap the hero above */
+  padding-bottom: 10vh;
+  background-color: #050505; /* Solid background is key */
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Visual divider */
+  margin: auto;
+  max-width: 100%;
   align-items: center;
-  justify-content: center;
-  border: 20px solid #111; /* Like a concrete frame */
+}
+
+/* LEFT SIDE: The Portrait & Stencil */
+.hero-content {
+  position: relative;
+  flex: 1;
+  max-width: 500px;
 }
 
 .industrial-line {
@@ -319,15 +569,35 @@ h1 {
 }
 
 .stencil-text {
-  font-family: "Stencil", sans-serif;
-  color: #f1c40f; /* Caution Yellow */
   position: absolute;
-  bottom: 10px;
+  bottom: -90px;
   left: -20px;
-  transform: rotate(-90deg);
-  font-size: 0.7rem;
-  letter-spacing: 3px;
+  font-family: "Space Grotesk", monospace;
+  font-size: 6rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  z-index: -1; /* Sits behind the portrait */
 }
+
+/* RIGHT SIDE: The Header & Stats */
+.hero-sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Pushes name to the right */
+  justify-content: center;
+  text-align: right;
+  z-index: 20;
+}
+
+.warehouse-sidebar {
+top: 50%;
+  right: -40px; /* Adjust this to move it closer or further from the image */
+  transform: translateY(-50%); /* Vertical rotation */
+  transform-origin: center;
+}
+
 
 .designer-swap {
   width: 100%;
@@ -347,8 +617,8 @@ h1 {
 }
 
 .scroll-swap-box .layer {
- position: absolute;
-  width: 60%;       /* Precise sizing for side-by-side look */
+  position: absolute;
+  width: 60%; /* Precise sizing for side-by-side look */
   height: auto;
   aspect-ratio: 2/3;
   object-fit: cover;
@@ -356,7 +626,7 @@ h1 {
 }
 
 .sketch-layer {
-top: 0;
+  top: 0;
   left: 0;
   z-index: 1;
   filter: grayscale(100%) opacity(0.8);
@@ -364,8 +634,8 @@ top: 0;
 
 /* Photo: Starts lower and further right, then slides in */
 .photo-layer {
-top: 35%;         /* Positioned to "extend" the sketch downward */
-  right: -10%;      /* Slightly off-center to the right */
+  top: 35%; /* Positioned to "extend" the sketch downward */
+  right: -10%; /* Slightly off-center to the right */
   z-index: 2;
   transform: translateX(80px); /* Side slide-in */
   opacity: 0;
@@ -387,7 +657,7 @@ top: 35%;         /* Positioned to "extend" the sketch downward */
 
 /* Active State (Triggered by Scroll) */
 .scroll-swap-box.is-active .photo-layer {
-transform: translateX(0);
+  transform: translateX(0);
   opacity: 1;
   filter: grayscale(0%) brightness(1);
 }
@@ -405,11 +675,11 @@ transform: translateX(0);
 }
 
 .scroll-swap-box {
-position: relative !important;
+  position: relative !important;
   width: 100%;
   max-width: 500px; /* Kept it tight so images look smaller */
-  height: 750px;    /* Height enough for the "staircase" effect */
-  margin: 150px auto; 
+  height: 750px; /* Height enough for the "staircase" effect */
+  margin: 150px auto;
   overflow: visible;
 }
 
@@ -503,32 +773,49 @@ position: relative !important;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+section {
+  position: relative;
+  background: var(--bg); /* Gives each section a "solid floor" */
+  z-index: 10;
+}
+
+.design-blueprint {
+  position: relative;
+  z-index: 5; /* Low enough that Header (100) stays on top */
+  background: transparent;
+  padding-top: 15vh;
+}
+
+.stats-bar {
+  position: relative;
+  padding-top: 80px;
+  z-index: 12; /* This ensures the next section covers the blueprint when you're done */
+}
+
 .blueprint-card {
-position: relative !important;
+  position: relative !important;
   width: 100%;
   max-width: 600px;
-  height: 1000px; /* This is the physical space the user scrolls through */
-  margin: 100px auto;
-  /* Removed overflow: hidden here so sticky can work */
+  height: 1200px; /* Give it plenty of room to "breathe" */
+  margin: 0 auto;
 }
 
 .blueprint-card .layer {
-position: absolute;
-  width: 60%; 
-  height: auto;
-  aspect-ratio: 2/3;
-  object-fit: cover;
-  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  position: absolute;
+  width: 70%;
+  height: 80%; /* Give the div height since it's a background image */
+  background-size: cover;
+  background-position: center;
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .card-inner {
-position: sticky;
-  top: 15%; /* Pins it 15% from the top of the viewport */
+  position: sticky;
+  top: 20%;
   width: 100%;
-  height: 600px; /* The height of the actual visual area */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 600px;
+  /* Ensure this container doesn't have a z-index, 
+     let the children handle the stacking */
 }
 
 .layer {
@@ -541,21 +828,18 @@ position: sticky;
 
 /* Final Photo: Grayscale and Moody */
 .final-image {
-bottom: 0;
-  right: 0;
-  z-index: 2;
+  z-index: 10 !important; /* Force to top */
   opacity: 0;
-  transform: translate(40px, 40px); /* Slid further out to the bottom-right */
-  filter: grayscale(1) brightness(0.4);
+  transform: translate(15%, 15%);
+  /* The Industrial Glow */
+  box-shadow: 0 0 0px rgba(241, 196, 15, 0);
+  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* The Sketch: Glowing Cyan like a Blueprint */
 .sketch-image {
-top: 0;
-  left: 0;
-  z-index: 1;
-  opacity: 0.4;
-  filter: grayscale(1) brightness(0.7);
+  z-index: 1 !important; /* Force to bottom */
+  opacity: 0.3;
+  filter: grayscale(1) contrast(1.2);
 }
 
 /* Hover Action: Reveal the Sketch */
@@ -568,13 +852,17 @@ top: 0;
 }
 
 .blueprint-card.is-active .final-image {
- opacity: 1;
-  transform: translate(0, 0);
-  filter: grayscale(0) brightness(1);
+  opacity: 1;
+  transform: translate(10%, 10%);
+  /* This creates the "Light Leak" effect over the sketch */
+  box-shadow:
+    -20px -20px 50px rgba(241, 196, 15, 0.2),
+    0 0 15px rgba(241, 196, 15, 0.4);
+  filter: grayscale(0) brightness(1.1);
 }
 
 .blueprint-card.is-active .sketch-image {
-opacity: 0.1;
+  opacity: 0.1;
   transform: scale(0.95);
 }
 
@@ -610,8 +898,12 @@ opacity: 0.1;
 }
 
 .archival-name {
-  text-shadow: 0 0 30px rgba(0, 0, 0, 0.9); /* Creates a "dead zone" for the ticker to pass through */
-  z-index: 10;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  line-height: 1.1; /* Increased from 0.85 to stop letters crashing */
+  margin: 0;
+  padding-bottom: 20px;
+  white-space: nowrap; /* Keeps KEANO and WALLIS from wrapping awkwardly */
 }
 
 .warehouse-gallery {
@@ -727,6 +1019,14 @@ opacity: 0.1;
   position: relative !important;
 }
 
+.main-portrait img {
+  width: 100%;
+  height: auto;
+  filter: grayscale(100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 3;
+}
+
 .btn-industrial:hover {
   background-color: #d61a1a; /* Deeper red on hover */
   box-shadow: 0 0 30px rgba(255, 49, 49, 0.8);
@@ -737,18 +1037,18 @@ opacity: 0.1;
 .asset-tag {
   counter-increment: asset-count;
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+
   font-family: "Space Grotesk", monospace;
   font-size: 8px;
   color: #f1c40f; /* Your Caution Yellow */
   background: rgba(0, 0, 0, 0.8);
-  padding: 3px 7px;
+
   letter-spacing: 1px;
   z-index: 10;
   border-left: 3px solid #ff3131; /* Red Safety Stripe */
   pointer-events: none;
   counter-increment: photo-count;
+  ;
 }
 
 /* Add this to your Tag */
@@ -805,13 +1105,12 @@ opacity: 0.1;
   /* You can animate this with JS or just let it be a static "Live" wire */
 }
 
-
 /* --- MOBILE & TABLET SCALING --- */
 @media (max-width: 768px) {
   .blueprint-card {
     height: 700px; /* Shorter track for mobile */
   }
-  
+
   .card-inner {
     height: 450px;
   }
@@ -824,25 +1123,310 @@ opacity: 0.1;
     bottom: 5%; /* Less extreme offset so it stays on screen */
     right: 5%;
   }
+  .blueprint-card.is-active .final-image {
+    /* Reduce the offset on mobile so it doesn't get cut off */
+    transform: translate(5%, 5%);
+    box-shadow: -10px -10px 30px rgba(241, 196, 15, 0.2);
+  }
+  .scroll-swap-box.is-active .sketch-layer {
+    opacity: 0; /* Total fade-out on mobile for clarity */
+  }
 }
 
 /* --- SMALL PHONE FIX --- */
 @media (max-width: 480px) {
-  .scroll-swap-box, .blueprint-card {
+  .scroll-swap-box,
+  .blueprint-card {
     height: 500px;
   }
-  
-  .scroll-swap-box .layer, .blueprint-card .layer {
+
+  .scroll-swap-box .layer,
+  .blueprint-card .layer {
     width: 95%; /* Almost full width on tiny phones */
   }
-  
-  .photo-layer, .final-image {
+
+  .photo-layer,
+  .final-image {
     top: 20%; /* Even tighter overlap so the user sees both at once */
   }
 }
 
+/* --- 1. CORE & VARIABLES --- */
+:root {
+  --bg: #050505;
+  --text: #f5f5f5;
+  --accent-yellow: #f1c40f;
+  --accent-red: #ff3131;
+}
+
+body {
+  background-color: #121212;
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  counter-reset: asset-count photo-count; /* Combined reset */
+  overflow-x: hidden;
+  background-image: radial-gradient(
+    circle at 50% 30%,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 60%
+  );
+  background-size: 50px 50px;
+  background-attachment: fixed;
+}
+
+/* --- 2. HERO & TICKER (The Stays-On-Top Layers) --- */
+.hero {
+  position: relative;
+  z-index: 100;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1.archival-name {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  text-align: center;
+  z-index: 101;
+  animation: tubeLightStart 2s ease-out forwards;
+}
+
+.background-ticker {
+  position: fixed;
+  top: 15%;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.1;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at center, transparent 15%, black 45%);
+}
+
+/* --- 3. THE BLUEPRINT SECTION (The "Staircase" Swap) --- */
+.design-blueprint {
+  position: relative;
+  padding: 20vh 0; /* Creates breathing room */
+  z-index: 5;
+}
+
+.blueprint-card {
+  position: relative !important;
+  width: 100%;
+  max-width: 600px;
+  height: 1000px; /* The scroll track */
+  margin: 0 auto;
+}
+
+.card-inner {
+  position: sticky;
+  top: 20%;
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Base style for all swap images */
+.blueprint-card .layer {
+  position: absolute;
+  width: 60%;
+  height: auto;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.sketch-image {
+  top: 0;
+  left: 0;
+  z-index: 1 !important;
+  opacity: 0.3;
+  filter: sepia(100%) hue-rotate(150deg) brightness(0.8);
+}
+
+.final-image {
+  bottom: 0;
+  right: 0;
+  z-index: 10 !important; /* Force to top */
+  opacity: 0;
+  transform: translate(15%, 15%); /* Starts offset */
+  filter: grayscale(100%) brightness(0.5);
+}
+
+/* TRIGGERED STATE: The Reveal & Glow */
+.blueprint-card.is-active .final-image {
+  opacity: 1;
+  transform: translate(
+    5%,
+    5%
+  ); /* Slides in closer but keeps the staircase look */
+  filter: grayscale(0%) brightness(1.1);
+  box-shadow:
+    -20px -20px 50px rgba(241, 196, 15, 0.2),
+    0 0 15px rgba(241, 196, 15, 0.4);
+}
+
+.blueprint-card.is-active .sketch-image {
+  opacity: 0.1;
+  transform: scale(0.95);
+}
+
+/* --- 4. GALLERY & LOOKBOOK --- */
+.lookbook-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 40px;
+  padding: 100px 5%;
+}
+
+.photo-item {
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1);
+  transition:
+    transform 0.8s cubic-bezier(0.2, 1, 0.3, 1),
+    filter 0.6s ease;
+}
+
+.photo-item:hover img {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+/* --- 5. ASSET TAGS --- */
+.asset-tag {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--accent-yellow);
+  font-family: "Space Grotesk", monospace;
+  font-size: 8px;
+  padding: 4px 8px;
+  border-left: 3px solid var(--accent-red);
+  counter-increment: asset-count;
+}
+
+.asset-tag::after {
+  content: " // BATCH_" counter(asset-count, decimal-leading-zero);
+}
+
+/* --- 6. MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
-  .scroll-swap-box.is-active .sketch-layer {
-    opacity: 0; /* Total fade-out on mobile for clarity */
+  .blueprint-card {
+    max-width: 90%;
+    height: 700px;
+  }
+
+  .blueprint-card .layer {
+    width: 85%;
+  }
+
+  .final-image {
+    transform: translate(5%, 5%);
+  }
+
+  h1.archival-name {
+    font-size: 4rem;
+  }
+}
+
+/* 1. RESTORE GRID DEPTH */
+.lookbook-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* 12-column pro grid */
+  grid-auto-rows: 100px;
+  gap: 25px;
+  padding: 100px 5%;
+}
+
+/* 2. RESTORE PHOTO VARIETY (The "Messy" Warehouse look) */
+.photo-item:nth-child(3n) {
+  grid-column: span 6;
+  grid-row: span 4;
+} /* Big feature */
+.photo-item:nth-child(2n) {
+  grid-column: span 4;
+  grid-row: span 3;
+} /* Medium */
+.photo-item:nth-child(4n) {
+  grid-column: span 3;
+  grid-row: span 5;
+} /* Tall */
+
+/* 3. RESTORE SECTION SEPARATION */
+section {
+  margin-bottom: 20vh; /* Stops sections from overlapping */
+  position: relative;
+}
+
+/* 4. RESTORE DEPTH */
+.photo-item {
+  box-shadow:
+    20px 20px 60px #080808,
+    -20px -20px 60px #121212;
+  border-radius: 2px;
+}
+
+/* THE ANIMATION LOGIC */
+@keyframes tubeLightStart {
+  0% {
+    opacity: 0;
+    text-shadow: none;
+  }
+  5% {
+    opacity: 1;
+    text-shadow:
+      0 0 10px #fff,
+      0 0 20px var(--accent-yellow);
+  }
+  7% {
+    opacity: 0.3;
+    text-shadow: none;
+  }
+  9% {
+    opacity: 1;
+    text-shadow: 0 0 10px #fff;
+  }
+  12% {
+    opacity: 0.5;
+  }
+  20% {
+    opacity: 1;
+    text-shadow:
+      0 0 15px var(--accent-yellow),
+      0 0 30px var(--accent-yellow);
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* APPLY TO THE NAMES */
+h1.fade-in,
+h1.archival-name {
+  animation: tubeLightStart 2.5s infinite ease-out forwards;
+  /* Optional: initial state is hidden so it "pops" on */
+  opacity: 0;
+}
+
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 20px; /* Tighter spacing for tablets/small laptops */
+  }
+  .archive-nav {
+    padding-right: 5%; /* Less padding on smaller screens */
   }
 }
